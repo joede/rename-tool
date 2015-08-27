@@ -1,0 +1,23 @@
+
+
+
+2011.3.12	V1.99.1	Xuming <xuming@bigfoot.com>
+
+	* almost rewrote the whole thing
+	* copyright license update to GPL v3
+	* primary site moved to sourceforge.net
+
+2011.3.9		Xuming <xuming@bigfoot.com>
+
+	reopen the rename programming
+
+2002.3.6	V1.2	Xuming <xuming@bigfoot.com>
+
+	fix a bug of handling strncpy() by Joerg Desch, which doesn't
+	end strings with '\0'.
+
+2001.8.29	V1.1	Xuming <xuming@iname.com>
+
+	First published release
+
+

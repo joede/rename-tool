@@ -1,18 +1,18 @@
 .TH NAME SECTION
 .SH Name
-renamex \- file rename tool
+rename-tool \- file rename tool
 
 .SH SYNOPSIS
-.B renamex
+.B rename-tool
 .I [options]  files ...
 
 .SH DESCRIPTION
-.BR Renamex 
+.BR Rename-Tool 
 is a small and quick tool written in C to rename files. 
 It can change, lowercase and uppercase the names of a batch of files, or 
 change the files' 
 .I ownership. 
-.BR Renamex 
+.BR Rename_Tool 
 is powered by the 
 .I extended regular expression 
 for searching and substituting string patterns in the names.
@@ -59,7 +59,7 @@ Never overwrite the existed files, discard the renaming process instead
 .TP
 .BR \-s/PATTERN/STRING[/SW]
 Substitute PATTERN with STRING in the filenames.
-.B renamex
+.B rename-tool
 will searching the
 .I PATTERN
 in the names. If the 
@@ -285,11 +285,11 @@ Please send bug reports to "Andy Xuming" <xuming@users.sourceforge.net>
 
 .SH EXAMPLES
 .TP
-.B renamex "\-l \-R" *
+.B rename-tool "\-l \-R" *
 To lowercase all files' names recursively.
 
 .TP
-.B renamex "\-u \-s/abc/xyz/gi" *.c
+.B rename-tool "\-u \-s/abc/xyz/gi" *.c
 Substitute all 
 .I abc 
 substrings appeared in C  sources  files  with
@@ -297,7 +297,7 @@ substrings appeared in C  sources  files  with
 ignoring the case, then uppercase the whole file name.
 
 .TP
-.B renamex "\-v \-s/.c/.cpp/s" *
+.B rename-tool "\-v \-s/.c/.cpp/s" *
 Find all files with the 
 .I '.c' 
 suffix in the current directory and change them to 
@@ -307,7 +307,7 @@ suffix. Print the verbose information.
 .TP
 .B "find . \-name *.c > filename.lst"
 .TP
-.B renamex "\-s/.c/.cpp/s \-f" filename.lst
+.B rename-tool "\-s/.c/.cpp/s \-f" filename.lst
 Find all files with the 
 .I '.c' 
 suffix under the current directory and change them to 
@@ -315,7 +315,7 @@ suffix under the current directory and change them to
 suffix by the list file.
 
 .TP
-.B renamex "\-s/abc/12345/bi" *
+.B rename-tool "\-s/abc/12345/bi" *
 Read names from the 
 .I 'filename.lst' , 
 find the last occurrence of 
@@ -325,7 +325,7 @@ and  replace it with
 ignoring the case.
 
 .TP
-.B renamex "\-s/^[A\-Z].*file/nofile/r" *
+.B rename-tool "\-s/^[A\-Z].*file/nofile/r" *
 The target substring starts with a capital letter, and ends with string
 .I 'file' . 
 There are 0 or any numbers of characters between the capital letter and 
@@ -334,19 +334,19 @@ The substring, if encountered in filenames, will be replaced with
 .I 'nofile'.
 
 .TP
-.B renamex "\-s/^[A\-Z].+file/nofile/eg" *
+.B rename-tool "\-s/^[A\-Z].+file/nofile/eg" *
 Similar to above, except it uses extended regular expression, such as the 
 .I '+' 
 metacharacter, and replaces all matching strings with 
 .I 'nofile'.
 
 .TP
-.B renamex "\-t \-s/^[A\-Z].+file/nofile/eg" *
+.B rename-tool "\-t \-s/^[A\-Z].+file/nofile/eg" *
 .BR Test mode 
 only. Simulate the rename process but no files would be actually changed.
 
 .TP
-.B renamex "\-o guest \-R" /home/custom
+.B rename-tool "\-o guest \-R" /home/custom
 change the ownership of 
 .I '/home/custom' 
 to 
@@ -357,5 +357,4 @@ should be an effective user in the current system. If
 .I '/home/custom' 
 is a directory, all files' ownership in this directory tree will be changed to
 .I 'guest' .
-
 
