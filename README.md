@@ -6,6 +6,11 @@ quick tool written in C so it's quicker than most rename tools written in shell
 scripts. `rename-tool` is powered by the extended regular expression for
 searching and substituting string patterns in the file names.
 
+`rename-tool' is a fork of [renamex](http://rename.sourceforge.net) written by
+*Andy Xuming* <xuming@users.sourceforge.net>. Since this project is dead since
+several years now, I've decided to fork it to add some new features I want to
+have.
+
 
 ## Features
 
@@ -22,13 +27,15 @@ searching and substituting string patterns in the file names.
 
 Download rename distribution then unpack it with `tar -zxf`:
 
+    ~~~~
     make
     make install
+    ~~~~
 
 
 ## BUGS reporting
 
-Please report bugs at http://github.com/joede/rename-tool
+Please report bugs at the [project page at github](http://github.com/joede/rename-tool/issues).
 
 
 ## Examples
