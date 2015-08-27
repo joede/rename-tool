@@ -1,0 +1,20 @@
+Begin4
+Title:          rename
+Version:        2.0
+Entered-date:   2011-03-20
+Description:    A file renaming tool. It can rename, lowercase, uppercase 
+                a batch of files, or change their ownership. It's a small 
+                and quick tool written in C and powered by the extended 
+                regular expression for searching and substituting string 
+		pattern in file names.
+Keywords:       rename, regular expression
+Author:	        "Andy Xuming" <xuming@users.sourceforge.net>
+Maintained-by:  "Andy Xuming" <xuming@users.sourceforge.net>
+Primary-site:   http://rename.sourceforge.net/
+                76K rename-1.99.2.tar.gz
+		1K  rename-1.99.2.lsm
+Alternate-site: ftp://ibiblio.org/pub/linux/utils/file
+Platforms:      Linux
+Copying-policy: GPLv3+
+End
+

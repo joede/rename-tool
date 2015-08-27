@@ -1,0 +1,361 @@
+.TH NAME SECTION
+.SH Name
+renamex \- file rename tool
+
+.SH SYNOPSIS
+.B renamex
+.I [options]  files ...
+
+.SH DESCRIPTION
+.BR Renamex 
+is a small and quick tool written in C to rename files. 
+It can change, lowercase and uppercase the names of a batch of files, or 
+change the files' 
+.I ownership. 
+.BR Renamex 
+is powered by the 
+.I extended regular expression 
+for searching and substituting string patterns in the names.
+
+.SH OPTIONS
+.TP
+.BR \-l , " \-\-lowercase"
+Lowercase specified filenames.
+
+.TP
+.BR \-u , " \-\-uppercase"
+Uppercase specified filenames.
+
+.TP
+.BR \-R , " \-\-recursive"
+Perform on the specified files and all subdirectories.
+
+.TP
+.BR \-t , " \-\-test"
+Test only mode. It won't change anything, just test the result of 
+searching and substituting.
+
+.TP
+.BR \-f , " \-\-file"
+Load file names from the specified files.
+
+.TP
+.BR \-o , " \-\-owner  \fIOWNER\fP"
+Change the ownership of the specified files to OWNER. 
+.B (superuser only)
+
+.TP
+.BR \-v , " \-\-verbose"
+verbose display.
+
+.TP
+.BR \-A, " \-\-always"
+Always overwrite the existed files
+
+.TP
+.BR \-N , " \-\-never"
+Never overwrite the existed files, discard the renaming process instead
+
+.TP
+.BR \-s/PATTERN/STRING[/SW]
+Substitute PATTERN with STRING in the filenames.
+.B renamex
+will searching the
+.I PATTERN
+in the names. If the 
+.I PATTERN
+matches, it would be replaced by the specified
+.I STRING
+and then call the system call to change the file's name.
+.B SW
+can be combined by the following switches:
+.RS
+.TP
+.B g
+replace all occurrences in the filename.
+.TP
+.B i
+ignore case when searching.
+.TP
+.B b
+backward searching and substituting. This does not support regular expression.
+.TP
+.B s
+change file's suffix. In this case, the PATTERN should be some kind of
+filename suffix.
+.TP
+.B r
+declare that PATTERN is a regular expression.
+.TP
+.B e
+declare that PATTERN is an extended regular expression.
+.TP
+.B 1-9
+replace 1 to 9 occurrences in the filename.
+
+.SH "REGULAR EXPRESSION"
+This section about extended regular expression is digisted from the 
+manpage of 
+.B fgrep(1).
+See it for details.
+.PP
+A regular expression is a pattern that describes a set of strings.
+Regular expressions are constructed analogously to arithmetic
+expressions, by using various operators to combine smaller expressions.
+.PP
+The fundamental building blocks are the regular expressions that match
+a single character.  Most characters, including all letters and digits,
+are regular expressions that match themselves.  Any metacharacter with
+special meaning may be quoted by preceding it with a backslash.
+.PP
+A list of characters enclosed by
+.B [
+and
+.B ]
+matches any single
+character in that list; if the first character of the list
+is the caret
+.B ^
+then it matches any character
+.I not
+in the list.
+For example, the regular expression
+.B [0123456789]
+matches any single digit.  A range of ASCII characters
+may be specified by giving the first and last characters, separated
+by a hyphen.
+Finally, certain named classes of characters are predefined.
+Their names are self explanatory, and they are
+.BR [:alnum:] ,
+.BR [:alpha:] ,
+.BR [:cntrl:] ,
+.BR [:digit:] ,
+.BR [:graph:] ,
+.BR [:lower:] ,
+.BR [:print:] ,
+.BR [:punct:] ,
+.BR [:space:] ,
+.BR [:upper:] ,
+and
+.BR [:xdigit:].
+For example,
+.B [[:alnum:]]
+means
+.BR [0-9A-Za-z] ,
+except the latter form is dependent upon the ASCII character encoding,
+whereas the former is portable.
+(Note that the brackets in these class names are part of the symbolic
+names, and must be included in addition to the brackets delimiting
+the bracket list.)  Most metacharacters lose their special meaning
+inside lists.  To include a literal
+.B ]
+place it first in the list.  Similarly, to include a literal
+.B ^
+place it anywhere but first.  Finally, to include a literal
+.B \-
+place it last.
+.PP
+The period
+.B .
+matches any single character.
+The symbol
+.B \ew
+is a synonym for
+.B [[:alnum:]]
+and
+.B \eW
+is a synonym for
+.BR [^[:alnum]] .
+.PP
+The caret
+.B ^
+and the dollar sign
+.B $
+are metacharacters that respectively match the empty string at the
+beginning and end of a line.
+The symbols
+.B \e<
+and
+.B \e>
+respectively match the empty string at the beginning and end of a word.
+The symbol
+.B \eb
+matches the empty string at the edge of a word,
+and
+.B \eB
+matches the empty string provided it's
+.I not
+at the edge of a word.
+.PP
+A regular expression may be followed by one of several repetition operators:
+.PD 0
+.TP
+.B ?
+The preceding item is optional and matched at most once.
+.TP
+.B *
+The preceding item will be matched zero or more times.
+.TP
+.B +
+The preceding item will be matched one or more times.
+.TP
+.BI { n }
+The preceding item is matched exactly
+.I n
+times.
+.TP
+.BI { n ,}
+The preceding item is matched
+.I n
+or more times.
+.TP
+.BI {, m }
+The preceding item is optional and is matched at most
+.I m
+times.
+.TP
+.BI { n , m }
+The preceding item is matched at least
+.I n
+times, but not more than
+.I m
+times.
+.PD
+.PP
+Two regular expressions may be concatenated; the resulting
+regular expression matches any string formed by concatenating
+two substrings that respectively match the concatenated
+subexpressions.
+.PP
+Two regular expressions may be joined by the infix operator
+.BR | ;
+the resulting regular expression matches any string matching
+either subexpression.
+.PP
+Repetition takes precedence over concatenation, which in turn
+takes precedence over alternation.  A whole subexpression may be
+enclosed in parentheses to override these precedence rules.
+.PP
+The backreference
+.BI \e n\c
+\&, where
+.I n
+is a single digit, matches the substring
+previously matched by the
+.IR n th
+parenthesized subexpression of the regular expression.
+.PP
+In basic regular expressions the metacharacters
+.BR ? ,
+.BR + ,
+.BR { ,
+.BR | ,
+.BR ( ,
+and
+.BR )
+lose their special meaning; instead use the backslashed
+versions
+.BR \e? ,
+.BR \e+ ,
+.BR \e{ ,
+.BR \e| ,
+.BR \e( ,
+and
+.BR \e) .
+
+.SH "SEE ALSO"
+mv(1), chown(1), regex(7), regex(3)
+
+.SH COPYING
+This is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+.SH BUGS
+Please send bug reports to "Andy Xuming" <xuming@users.sourceforge.net>
+
+.SH EXAMPLES
+.TP
+.B renamex "\-l \-R" *
+To lowercase all files' names recursively.
+
+.TP
+.B renamex "\-u \-s/abc/xyz/gi" *.c
+Substitute all 
+.I abc 
+substrings appeared in C  sources  files  with
+.I xyz , 
+ignoring the case, then uppercase the whole file name.
+
+.TP
+.B renamex "\-v \-s/.c/.cpp/s" *
+Find all files with the 
+.I '.c' 
+suffix in the current directory and change them to 
+.I '.cpp' 
+suffix. Print the verbose information.
+
+.TP
+.B "find . \-name *.c > filename.lst"
+.TP
+.B renamex "\-s/.c/.cpp/s \-f" filename.lst
+Find all files with the 
+.I '.c' 
+suffix under the current directory and change them to 
+.I '.cpp' 
+suffix by the list file.
+
+.TP
+.B renamex "\-s/abc/12345/bi" *
+Read names from the 
+.I 'filename.lst' , 
+find the last occurrence of 
+.I 'abc'
+and  replace it with 
+.I '12345' , 
+ignoring the case.
+
+.TP
+.B renamex "\-s/^[A\-Z].*file/nofile/r" *
+The target substring starts with a capital letter, and ends with string
+.I 'file' . 
+There are 0 or any numbers of characters between the capital letter and 
+.I 'file' . 
+The substring, if encountered in filenames, will be replaced with 
+.I 'nofile'.
+
+.TP
+.B renamex "\-s/^[A\-Z].+file/nofile/eg" *
+Similar to above, except it uses extended regular expression, such as the 
+.I '+' 
+metacharacter, and replaces all matching strings with 
+.I 'nofile'.
+
+.TP
+.B renamex "\-t \-s/^[A\-Z].+file/nofile/eg" *
+.BR Test mode 
+only. Simulate the rename process but no files would be actually changed.
+
+.TP
+.B renamex "\-o guest \-R" /home/custom
+change the ownership of 
+.I '/home/custom' 
+to 
+.I 'guest' . 
+The 
+.I 'guest' 
+should be an effective user in the current system. If 
+.I '/home/custom' 
+is a directory, all files' ownership in this directory tree will be changed to
+.I 'guest' .
+
+
