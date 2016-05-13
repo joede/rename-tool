@@ -1,0 +1,6 @@
+* move sources to ./src
+* add autotools support
+* let configure create CFG_UNIX_API or create it on information
+  based on configure
+* let configure check for regex.h
+
